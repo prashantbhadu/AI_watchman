@@ -1,0 +1,47 @@
+# AI Watchman - Complete Project Guide (Step 1: Foundation and configuration)
+# Generated from the project's official project guide (docs PDF).
+
+watchman:
+  name: ai-watchman
+  version: "1.0.0"
+  environment: development
+
+# AI provider configuration. The README lists these providers:
+# groq | openai | anthropic | ollama | cohere | google
+llm:
+  provider: groq
+  model: llama-3.3-70b-versatile
+  api_key_env_var: GROQ_API_KEY
+  temperature: 0.2
+
+# Threat detection configuration
+threat_detection:
+  auto_mitigate_threshold: 7   # severity 7+ needs human approval
+  notify_threshold: 4
+  signature_patterns: 120
+
+# Policy engine configuration
+policy_engine:
+  mode: semi_auto              # auto | semi_auto | manual
+  ip_block_duration_seconds: 3600
+
+# Code healing configuration
+code_healing:
+  enabled: true
+  auto_patch: false            # true only for CI/CD; always requires git
+  ask_human_threshold: 7
+  max_retries: 3
+
+# Alerts configuration
+alerts:
+  channels:
+    - type: slack
+      webhook_url: "https://hooks.slack.com/..."
+    - type: email
+      smtp_host: smtp.gmail.com
+      from_email: watchman@example.com
+      to_emails:
+        - admin@example.com
+
+# Safety flag: humans approve serious actions
+self_heal: false
